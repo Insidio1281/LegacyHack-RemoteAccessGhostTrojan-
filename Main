@@ -1,0 +1,41 @@
+#include <iostream>
+#include <string>
+#include <vector>
+
+class Proxy {
+public:
+    Proxy(const std::string& ip, int port) : ip(ip), port(port) {}
+
+    void sendInformation(const std::string& data) {
+        // Code for sending data to a target
+    }
+
+private:
+    std::string ip;
+    int port;
+};
+
+class MasterComputer {
+public:
+    void remotelyControlProxy(Proxy& proxy, const std::string& data) {
+        proxy.sendInformation(data);
+    }
+};
+
+int main() {
+    std::vector<Proxy> proxies;
+
+    // Create proxies on device
+    for (int i = 0; i < 1000; i++) {
+        proxies.push_back(Proxy("127.0.0.1", 8080));
+    }
+
+    MasterComputer master;
+    Proxy& proxy = proxies[0];
+    std::string data = "Secret information";
+
+    // Remotely control proxy to send information
+    master.remotelyControlProxy(proxy, data);
+
+    return 0;
+}
